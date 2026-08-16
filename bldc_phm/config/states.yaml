@@ -1,0 +1,29 @@
+# State-conditioned operating points (baselines are computed PER state).
+# These match the firmware's USER-button speed steps. A signal that is healthy at one
+# speed is a fault at another, so never use one global baseline.
+#
+# NOTE: loaded states (with a brake), keep them SHORT and at moderate speed. At rated
+# load near 1.79 A held at high rpm the motor overheats. Do NOT baseline at 4000 rpm
+# under brake for long (this corrects the "State Gamma 4000+brake" idea from the AI docs).
+
+states:
+  - name: idle_500
+    speed_step: 0
+    speed_rpm: 500
+    load: none
+  - name: low_800
+    speed_step: 1
+    speed_rpm: 800
+    load: none
+  - name: mid_1100
+    speed_step: 2
+    speed_rpm: 1100
+    load: none
+  - name: high_1400
+    speed_step: 3
+    speed_rpm: 1400
+    load: none
+  - name: top_1700
+    speed_step: 4
+    speed_rpm: 1700
+    load: none

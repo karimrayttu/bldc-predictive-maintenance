@@ -1,0 +1,14 @@
+# Pinned to the versions this bench is VERIFIED against.
+# app/requirements.txt uses >= bounds; on a fresh 2026 PyPI those resolve to
+# pandas 3.x, a major release with breaking changes against code written for 2.x.
+# A teammate would pass every setup check and then lose their first recording.
+# Install with:  pip install -r app/requirements.lock.txt
+
+PyQt5==5.15.11
+pyserial==3.5
+numpy==2.4.6
+pandas==3.0.3
+openpyxl==3.1.5
+PyYAML==6.0.3
+scipy==1.18.0
+Pillow==12.2.0

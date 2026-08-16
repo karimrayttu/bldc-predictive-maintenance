@@ -1,0 +1,129 @@
+{
+  "created": "2026-07-30T00:49:18",
+  "points": [
+    {
+      "t": "2026-07-30T00:49:36",
+      "kind": "off",
+      "cmd_rpm": 0,
+      "note": "",
+      "board": {
+        "n": 160,
+        "a0_mv": 1678.0,
+        "a0_sd": 0.0,
+        "a0_min": 1678,
+        "a0_max": 1678,
+        "peak_mv": 1681.0,
+        "min_mv": 1675.0,
+        "rpm": 0.0,
+        "rpm_sd": 0.0,
+        "temp_mv": 1684.0,
+        "vref_raw": 1494.0,
+        "rail_v": 3.3165662650602408,
+        "ripple_permil": 338.0,
+        "accel_rms_mg": 58.0,
+        "sensor_status": 16351
+      },
+      "dmm_mv": 1685.06884,
+      "dmm_spread_mv": 0.04556000000002314,
+      "scope": {
+        "vavg_mv": 1667.6,
+        "vpp_mv": 13.0,
+        "probe": 10.0
+      },
+      "true_bus_a": null
+    },
+    {
+      "t": "2026-07-30T00:50:03",
+      "kind": "on",
+      "cmd_rpm": 800,
+      "note": "",
+      "board": {
+        "n": 160,
+        "a0_mv": 1679.0,
+        "a0_sd": 0.5,
+        "a0_min": 1678,
+        "a0_max": 1680,
+        "peak_mv": 1683.0,
+        "min_mv": 1675.0,
+        "rpm": 806.0,
+        "rpm_sd": 142.0467076297001,
+        "temp_mv": 1684.0,
+        "vref_raw": 1494.0,
+        "rail_v": 3.3165662650602408,
+        "ripple_permil": 249.0,
+        "accel_rms_mg": 60.0,
+        "sensor_status": 16383
+      },
+      "dmm_mv": 1687.081385,
+      "dmm_spread_mv": 0.16053000000010798,
+      "scope": {
+        "vavg_mv": 1670.8,
+        "vpp_mv": 10.0,
+        "probe": 10.0
+      },
+      "true_bus_a": null
+    },
+    {
+      "t": "2026-07-30T00:51:52",
+      "kind": "off",
+      "cmd_rpm": 0,
+      "note": "bracket after 806rpm/0.074A",
+      "board": {
+        "n": 161,
+        "a0_mv": 1678,
+        "a0_sd": 0.13522696308743629,
+        "a0_min": 1678,
+        "a0_max": 1679,
+        "peak_mv": 1681,
+        "min_mv": 1674,
+        "rpm": 0,
+        "rpm_sd": 163.69974047221368,
+        "temp_mv": 1685,
+        "vref_raw": 1494,
+        "rail_v": 3.3165662650602408,
+        "ripple_permil": 249,
+        "accel_rms_mg": 61,
+        "sensor_status": 16351
+      },
+      "dmm_mv": 1684.81489,
+      "dmm_spread_mv": 0.012579999999843494,
+      "scope": {
+        "vavg_mv": 1667.5,
+        "vpp_mv": 11.0,
+        "probe": 10.0
+      },
+      "true_bus_a": null
+    },
+    {
+      "t": "2026-07-30T00:52:11",
+      "kind": "on",
+      "cmd_rpm": 2100,
+      "note": "",
+      "board": {
+        "n": 160,
+        "a0_mv": 1684.0,
+        "a0_sd": 1.0473180032826706,
+        "a0_min": 1677,
+        "a0_max": 1685,
+        "peak_mv": 1688.0,
+        "min_mv": 1679.0,
+        "rpm": 2128.0,
+        "rpm_sd": 337.7995513244504,
+        "temp_mv": 1683.0,
+        "vref_raw": 1494.0,
+        "rail_v": 3.3165662650602408,
+        "ripple_permil": 298.0,
+        "accel_rms_mg": 61.0,
+        "sensor_status": 16383
+      },
+      "dmm_mv": 1692.09953,
+      "dmm_spread_mv": 0.27937999999994645,
+      "scope": {
+        "vavg_mv": 1673.7,
+        "vpp_mv": 10.0,
+        "probe": 10.0
+      },
+      "true_bus_a": null
+    }
+  ]
+}

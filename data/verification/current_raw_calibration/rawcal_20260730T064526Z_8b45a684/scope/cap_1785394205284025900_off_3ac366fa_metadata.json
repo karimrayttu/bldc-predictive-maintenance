@@ -1,0 +1,63 @@
+{
+  "binary_bytes": 200000,
+  "binary_encoding": "unsigned 16-bit little-endian WORD samples",
+  "binary_file": "scope/cap_1785394205284025900_off_3ac366fa_ch1_word_lsb.bin",
+  "binary_sha256": "3d4b55506013e58279af66ddd108f41870c7fc078760114f996005a7840e5c9e",
+  "capture_end_monotonic_ns": 111580501339000,
+  "capture_end_time_ns": 1785394246932873600,
+  "capture_end_utc": "2026-07-30T06:50:46.932874Z",
+  "capture_id": "cap_1785394205284025900_off_3ac366fa",
+  "capture_start_monotonic_ns": 111580061192600,
+  "capture_start_time_ns": 1785394246492719400,
+  "capture_start_utc": "2026-07-30T06:50:46.492719Z",
+  "derived_waveform_stats": {
+    "code_max": 40704,
+    "code_mean": 33531.89888,
+    "code_min": 24832,
+    "decoded": true,
+    "note": "derived from the saved raw WORD block and saved preamble",
+    "sample_count": 100000,
+    "voltage_max_v": 1.89924619008,
+    "voltage_mean_v": 1.6739917950411263,
+    "voltage_min_v": 1.4007538099199999
+  },
+  "measurements": {
+    "frequency_hz": null,
+    "vaverage_v": 1.67396,
+    "vpp_v": 0.76,
+    "vrms_ac_v": 0.00467
+  },
+  "metadata_file": "scope/cap_1785394205284025900_off_3ac366fa_metadata.json",
+  "preamble": {
+    "count": 1.0,
+    "format": 1.0,
+    "points": 100000.0,
+    "raw": "+1,+0,+100000,+1,+1.00000000E-007,-5.00004765E-003,+0,+3.14070300E-005,+1.65000000E+000,+32768",
+    "type": 0.0,
+    "x_increment_s": 1e-07,
+    "x_origin_s": -0.00500004765,
+    "x_reference": 0.0,
+    "y_increment_v": 3.140703e-05,
+    "y_origin_v": 1.65,
+    "y_reference": 32768.0
+  },
+  "real_data_only": true,
+  "settings": {
+    "acquisition_type": "NORM",
+    "bandwidth_limit": "1",
+    "coupling": "DC",
+    "input_impedance": "ONEM",
+    "probe_ratio": "+10.000000E+00",
+    "sample_rate_hz": "+2.00000000E+008",
+    "time_scale_s_div": "+1.000E-03",
+    "vertical_offset_v": "+1.65000E+00",
+    "vertical_scale_v_div": "+200E-03",
+    "waveform_points": "+100000"
+  },
+  "simulated": false,
+  "synthetic": false,
+  "waveform_query_end_monotonic_ns": 111580501339000,
+  "waveform_query_end_time_ns": 1785394246932873600,
+  "waveform_query_start_monotonic_ns": 111580383671300,
+  "waveform_query_start_time_ns": 1785394246815188500
+}

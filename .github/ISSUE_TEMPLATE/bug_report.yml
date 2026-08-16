@@ -1,0 +1,41 @@
+name: Bug report
+description: Something behaves differently from what the guide says it does.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing, run `python tools/e2e_check.py`. If it fails, paste the failing
+        lines below; that output usually identifies the problem on its own.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what you got instead.
+    validations:
+      required: true
+  - type: textarea
+    id: checks
+    attributes:
+      label: Check output
+      description: Output of `python tools/e2e_check.py` and any other check that fails.
+      render: text
+    validations:
+      required: true
+  - type: dropdown
+    id: hardware
+    attributes:
+      label: Is hardware connected?
+      options:
+        - "No, running the tools and the recorded dataset only"
+        - "Yes, NUCLEO-F401RE attached over ST-LINK"
+        - "Yes, a different board"
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Python version and operating system
+      placeholder: "3.13.1 on Windows 11"
+    validations:
+      required: true

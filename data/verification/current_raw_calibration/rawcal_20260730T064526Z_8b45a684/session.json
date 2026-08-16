@@ -1,0 +1,92 @@
+{
+  "circuit_declaration": {
+    "adc_full_scale_code": 4095.0,
+    "factory_cal_vdda_mv": 3300.0,
+    "ina_gain_v_v": 50.0,
+    "parts_derived_mv_per_a": 250.0,
+    "shunt_ohm": 0.005
+  },
+  "created_time_ns": 1785393926799728000,
+  "created_utc": "2026-07-30T06:45:26.799728Z",
+  "format_version": 1,
+  "host": {
+    "cwd": "<repo>",
+    "platform": "win32",
+    "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "notes": "Keysight 34460A and MSO-X 3034T connected to PA0/A0; operator-read series ammeter connected in the 24 V feed; identity pending operator report.",
+  "operator": "",
+  "provenance_policy": {
+    "current_truth": "fresh human-entered series-ammeter value attached to one capture ID",
+    "evidence_mutability": "session.json is write-once; JSONL/CSV logs append; waveform and finalization files have unique names; corrections append events",
+    "forbidden_inputs": [
+      "historical current tables",
+      "interpolated current references",
+      "i_dc_mv",
+      "firmware/application current values",
+      "simulated or synthetic samples"
+    ],
+    "real_data_only": true,
+    "simulated": false,
+    "synthetic": false
+  },
+  "series_ammeter": {
+    "declared_uncertainty_a": null,
+    "identity": "",
+    "interface": "human_read; no computer timestamp is claimed",
+    "range": ""
+  },
+  "session_id": "rawcal_20260730T064526Z_8b45a684",
+  "stream_columns": [
+    "t_ms",
+    "rpm",
+    "ripple_permil",
+    "min_us",
+    "max_us",
+    "hall",
+    "illegal",
+    "edges",
+    "step",
+    "coast_ms",
+    "period_std_permil",
+    "mech1x_permil",
+    "elec_permil",
+    "i_dc_mv",
+    "adc_vref_raw",
+    "adc_pc0_mv",
+    "accel_rms_mg",
+    "accel_pk_mg",
+    "temp_mv",
+    "sensor_status",
+    "i_dc_peak_mv",
+    "i_dc_min_mv",
+    "i_adc_raw_sum",
+    "i_adc_raw_count",
+    "i_adc_raw_min",
+    "i_adc_raw_max",
+    "i_adc_ema_q8",
+    "vref_adc_raw_sum",
+    "vref_adc_raw_count",
+    "vref_adc_ema_q8",
+    "vref_factory_cal_raw",
+    "frame_seq",
+    "pwm_ticks",
+    "i_adc_window_start_us",
+    "i_adc_window_end_us",
+    "i_adc_fail_count",
+    "vref_window_start_us",
+    "vref_window_end_us",
+    "i_adc_raw_sumsq",
+    "vref_adc_raw_sumsq"
+  ],
+  "stream_schema_sha256": "0b971f581fa0e3b08341514913c65f077940ce5845f3cbfb6d8a85be785c74d2",
+  "tool": {
+    "git": {
+      "commit": null,
+      "error": "Command '['git', 'rev-parse', 'HEAD']' returned non-zero exit status 128.",
+      "worktree_dirty": null
+    },
+    "path": "<repo>\\tools\\calibrate_current_raw.py",
+    "sha256_at_session_creation": "94d83355e5c91a5aceb08e8f45d72a38f9537b8cb16c4ca10ac417b4ca2b0b1e"
+  }
+}

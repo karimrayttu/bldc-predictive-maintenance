@@ -1,0 +1,14 @@
+{
+  "measured": "2026-07-30",
+  "method": "300-sample, 30 s gravity vector measured directly over serial with the motor at rest and the mount PHYSICALLY UNCHANGED since the 30 healthy baseline runs (which predate per-axis streaming). This is therefore the orientation of every healthy run. Per-row Grav columns in those runs stay blank by the blank-not-zero rule; use this dataset-level constant.",
+  "accel_x_mg": -11.7,
+  "accel_y_mg": -21.0,
+  "accel_z_mg": 1050.1,
+  "magnitude_mg": 1050.3,
+  "samples": 299,
+  "sd_mg": {
+    "x": 10.46,
+    "y": 10.37,
+    "z": 8.34
+  }
+}

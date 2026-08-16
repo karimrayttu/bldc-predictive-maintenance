@@ -1,0 +1,85 @@
+<mxfile host="Electron">
+  <diagram name="System block diagram" id="0">
+    <mxGraphModel dx="2038" dy="1193" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="sup" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=15;fillColor=#F4F5F7;strokeColor=#8A9099;strokeWidth=1.5;" value="&lt;b&gt;24 V BENCH SUPPLY&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:12px'&gt;5 A fuse in the positive lead&lt;br&gt;a series ammeter is inserted&lt;br&gt;during current calibration&lt;/font&gt;" vertex="1">
+          <mxGeometry height="130" width="300" x="8" y="42" as="geometry" />
+        </mxCell>
+        <mxCell id="drv" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=15;fillColor=#F4F5F7;strokeColor=#8A9099;strokeWidth=1.5;" value="&lt;b&gt;BLD-510B DRIVER&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:12px'&gt;Hall-commutated three-phase&lt;br&gt;SV speed input, EN enable&lt;br&gt;measured full scale 2310 RPM&lt;/font&gt;" vertex="1">
+          <mxGeometry height="130" width="300" x="400" y="44" as="geometry" />
+        </mxCell>
+        <mxCell id="mot" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=15;fillColor=#F4F5F7;strokeColor=#8A9099;strokeWidth=1.5;" value="&lt;b&gt;42BL41.010 MOTOR&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:12px'&gt;24 V, 8-pole (four pole-pairs)&lt;br&gt;4000 RPM no-load, 6 A peak&lt;br&gt;integral Hall sensors&lt;/font&gt;" vertex="1">
+          <mxGeometry height="98" width="225" x="871" y="51" as="geometry" />
+        </mxCell>
+        <mxCell id="grp" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=14;fontStyle=1;fillColor=#F7FAFD;strokeColor=#1F3864;strokeWidth=1;verticalAlign=top;spacingTop=8;fontColor=#1F3864;" value="SENSING ON THE MOTOR AND ITS POWER PATH" vertex="1">
+          <mxGeometry height="260" width="1030" x="45" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="s_i" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=15;fillColor=#FFFFFF;strokeColor=#1F3864;strokeWidth=1.5;" value="&lt;b&gt;CURRENT&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:12px'&gt;5 m&amp;#937; shunt, Kelvin sensed&lt;br&gt;INA240A2, gain 50 V/V&lt;br&gt;330 &amp;#937; / 10 nF anti-alias&lt;br&gt;&amp;#8594; A0 (PA0)&lt;br&gt;&lt;b&gt;263.5 mV/A&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="190" width="232" x="60" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="s_t" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=15;fillColor=#FFFFFF;strokeColor=#1F3864;strokeWidth=1.5;" value="&lt;b&gt;TEMPERATURE&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:12px'&gt;10 k&amp;#937; NTC, B = 3950 K&lt;br&gt;divider from the 3.3 V rail&lt;br&gt;bonded to the motor case&lt;br&gt;&amp;#8594; A1 (PA1)&lt;br&gt;&lt;b&gt;1.66 V at 25 &amp;#176;C&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="190" width="232" x="316" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="s_s" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=15;fillColor=#FFFFFF;strokeColor=#1F3864;strokeWidth=1.5;" value="&lt;b&gt;SHAFT SPEED&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:12px'&gt;three Hall outputs tapped&lt;br&gt;open-collector, 4.8 V swing&lt;br&gt;&amp;#8594; D2, D3, D4&lt;br&gt;(PA10, PB3, PB5)&lt;br&gt;&lt;b&gt;24 edges per revolution&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="190" width="232" x="572" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="s_v" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=15;fillColor=#FFFFFF;strokeColor=#1F3864;strokeWidth=1.5;" value="&lt;b&gt;VIBRATION AND TILT&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:12px'&gt;KX134-1211, &amp;#177;16 g&lt;br&gt;2048 LSB/g, address 0x1F&lt;br&gt;bit-banged I&amp;#178;C&lt;br&gt;&amp;#8594; D14, D15&lt;br&gt;(PB9, PB8)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="190" width="232" x="828" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="mcu" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=15;fillColor=#EEF3F9;strokeColor=#1F3864;strokeWidth=2;" value="&lt;b&gt;NUCLEO-F401RE&lt;/b&gt; &amp;#8212; STM32F401RE, bare-metal C, 16 MHz HSI&lt;br&gt;&lt;font style='font-size:13px'&gt;&lt;b&gt;in&lt;/b&gt;&amp;#160; A0 current &amp;#183; A1 temperature &amp;#183; D2, D3, D4 Hall edges &amp;#183; D14, D15 I&amp;#178;C&lt;br&gt;&lt;b&gt;out&lt;/b&gt;&amp;#160; D5 (PB4) speed command, 1 kHz PWM, duty = n / 2310 &amp;#183; D7 (PA8) enable, open-drain, boots released&lt;br&gt;&lt;b&gt;on board&lt;/b&gt;&amp;#160; oversample and average &amp;#183; one-second window &amp;#183; 16 features &amp;#183; limit ladder, then decision tree &amp;#183; persistence filter&lt;/font&gt;" vertex="1">
+          <mxGeometry height="140" width="1000" x="60" y="545" as="geometry" />
+        </mxCell>
+        <mxCell id="pi" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=15;fillColor=#1F3864;strokeColor=#1F3864;fontColor=#FFFFFF;strokeWidth=2;" value="&lt;b&gt;RASPBERRY PI 5&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:12px'&gt;800 &amp;#215; 480 touchscreen, fullscreen dashboard&lt;br&gt;display and operator control only &amp;#8212; the verdict&lt;br&gt;arrives inside the telemetry&lt;/font&gt;" vertex="1">
+          <mxGeometry height="130" width="440" x="340" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="leg" parent="1" style="text;html=1;fontFamily=Helvetica;fontSize=13;fontColor=#495057;align=center;" value="Shaded = commercial hardware &amp;#183; white = circuitry built for this project &amp;#183; arrows carry the run-time signal path." vertex="1">
+          <mxGeometry height="40" width="1020" x="65" y="982" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="sup" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1F3864;strokeWidth=1.4;fontFamily=Helvetica;fontSize=12;fontColor=#495057;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="drv" value="24 V dc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="drv" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1F3864;strokeWidth=1.4;fontFamily=Helvetica;fontSize=12;fontColor=#495057;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="mot" value="MA, MB, MC&lt;br&gt;three-phase">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="drv" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1F3864;strokeWidth=1.4;fontFamily=Helvetica;fontSize=12;fontColor=#495057;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="grp" value="DC return through&lt;br&gt;the 5 m&amp;#937; shunt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="mot" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1F3864;strokeWidth=1.4;fontFamily=Helvetica;fontSize=12;fontColor=#495057;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.902;entryY=0.004;entryDx=0;entryDy=0;entryPerimeter=0;" target="grp" value="case NTC and&lt;br&gt;body accelerometer">
+          <mxGeometry relative="1" x="0.6735" y="26" as="geometry">
+            <mxPoint x="-7" y="-18" as="offset" />
+            <Array as="points">
+              <mxPoint x="974.1" y="149" />
+            </Array>
+            <mxPoint x="869" y="172" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5a" edge="1" parent="1" source="s_i" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1F3864;strokeWidth=1.4;fontFamily=Helvetica;fontSize=12;fontColor=#495057;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.116;entryY=0;entryDx=0;entryDy=0;" target="mcu" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5b" edge="1" parent="1" source="s_t" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1F3864;strokeWidth=1.4;fontFamily=Helvetica;fontSize=12;fontColor=#495057;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.372;entryY=0;entryDx=0;entryDy=0;" target="mcu" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5c" edge="1" parent="1" source="s_s" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1F3864;strokeWidth=1.4;fontFamily=Helvetica;fontSize=12;fontColor=#495057;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.628;entryY=0;entryDx=0;entryDy=0;" target="mcu" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5d" edge="1" parent="1" source="s_v" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1F3864;strokeWidth=1.4;fontFamily=Helvetica;fontSize=12;fontColor=#495057;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.884;entryY=0;entryDx=0;entryDy=0;" target="mcu" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="mcu" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1F3864;strokeWidth=1.4;fontFamily=Helvetica;fontSize=12;fontColor=#495057;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="pi" value="USB serial (ST-LINK VCP)&lt;br&gt;44 fields per row at 10 Hz">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="mcu" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#1F3864;strokeWidth=1.4;fontFamily=Helvetica;fontSize=12;fontColor=#495057;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="drv" value="SV: D5 (PB4), 1 kHz PWM, duty = n / 2310&lt;br&gt;EN: D7 (PA8), open-drain, boots released">
+          <mxGeometry relative="1" x="0.9" as="geometry">
+            <Array as="points">
+              <mxPoint x="1105" y="600" />
+              <mxPoint x="1105" y="15" />
+              <mxPoint x="550" y="15" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

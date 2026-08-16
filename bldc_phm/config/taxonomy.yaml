@@ -1,0 +1,383 @@
+label_template: '{condition}{sev_suffix}_{orientation}_{load}_{rpm}'
+stages:
+- 1_baseline
+- 2_installation
+- 3_fault
+- 4_demo
+conditions:
+- healthy
+- loose_mount
+- rotor_drag
+- overheat
+- orientation_change
+severities:
+- none
+- mild
+- moderate
+- clear
+fault_mechanisms:
+- none
+- mount_bolts_loosened
+- shaft_friction_pad
+- heat_gun
+- motor_reoriented
+orientations:
+- horizontal
+- vertical_shaft_up
+- vertical_shaft_down
+- angled
+mounts:
+- rigid
+- loosened
+- removed
+baseplates:
+- aluminum_plate
+- steel_plate
+- cast_iron_block
+- mdf_block
+- none_DEMO
+couplings:
+- none_free_shaft
+- flexible_jaw
+- rigid_coupling
+- belt
+- set_screw_collar
+alignments:
+- n/a_free_shaft
+- dial_indicated
+- eyeballed
+- intentional_misalign
+accel_locations:
+- none_yet
+- drive_end_bearing
+- non_drive_end
+- housing_mid
+- baseplate
+accel_axes:
+- none_yet
+- radial_x
+- radial_y
+- axial_z
+- triaxial
+load_mechanisms:
+- none_free_run
+- friction_brake
+- hysteresis_dyno
+- generator_resistive
+- prony_brake
+- belt_load
+- inertia_disk
+loads:
+- no_load
+- light
+- medium
+- heavy
+directions:
+- forward_CW
+- reverse_CCW
+ramps:
+- slow_ramp
+- medium_ramp
+- step_change_AVOID
+thermal_states:
+- cold_start
+- warming
+- warm_steady
+sample_profiles:
+- low_rate_trend_10Hz
+- balanced
+- high_rate_current_20-50kSps
+- high_rate_vibration_25kSps
+yes_no:
+- 'yes'
+- 'no'
+speed_steps:
+- step: 0
+  rpm: 500
+- step: 1
+  rpm: 800
+- step: 2
+  rpm: 1100
+- step: 3
+  rpm: 1400
+- step: 4
+  rpm: 1700
+speed_presets:
+- 0
+- 300
+- 500
+- 700
+- 900
+- 1100
+- 1300
+- 1500
+- 1700
+- 1900
+- 2100
+channels:
+- hall_rpm
+- ripple
+- sv_command
+- dc_bus_current
+- motor_temp
+- accel_vibration
+calibration_checks:
+- Supply voltage confirmed (PSU display or any DMM)
+- Driver current limit set to rated (~1.8 A), not 6 A peak
+- Mount secure (bolts torqued / clamp tight)
+- Warm-up done (or noted as cold-start)
+- Speed stable at target
+matrix:
+  rows: speed_rpm_nominal
+  cols: load
+coverage_plan:
+  runs_per_cell: 3
+  # Reduced plans (2026-07-30, operator): quick tests for the faults whose
+  # signature barely changes with rpm. Low/mid/high speed at 2 runs each = 6 runs
+  # (~17 min) per category. rotor_drag keeps the full 10x3 grid, its load
+  # signature is the speed-dependent one. healthy already recorded at full grid.
+  condition_overrides:
+    rotor_drag:
+      # Spectrum sweep (operator, 2026-07-30): one run per speed across the range,
+      # 80 s hold each so ALL FIVE runs fit in 10 minutes total. Drag current is
+      # 100s of mA against a ~4 mA floor; 800 frames per point is ample.
+      speeds: {300: 1, 900: 1, 1300: 1, 1700: 1, 2100: 1}
+      hold_s: 80
+    overheat:
+      # Exactly ONE run at 2100 (operator, 2026-07-30): the heat-gun signature
+      # lives in the NTC channel and barely depends on rpm.
+      speeds: {2100: 1}
+    orientation_change:
+      speeds: [500, 1300, 2100]
+      runs_per_cell: 2
+    loose_mount:
+      # 2100 gets a third run (operator, 2026-07-30), tilt varied per run, so the
+      # top speed carries left/right/neutral examples.
+      speeds: {500: 2, 1300: 2, 2100: 3}
+  speeds:
+  - 300
+  - 500
+  - 700
+  - 900
+  - 1100
+  - 1300
+  - 1500
+  - 1700
+  - 1900
+  - 2100
+  conditions:
+  - healthy
+  - loose_mount
+  - rotor_drag
+  - overheat
+  - orientation_change
+fields:
+- key: condition
+  label: Condition
+  group: Health
+  type: choice
+  options: conditions
+  default: healthy
+- key: severity
+  label: Severity
+  group: Health
+  type: choice
+  options: severities
+  default: none
+- key: fault_mechanism
+  label: Fault mechanism
+  group: Health
+  type: choice
+  options: fault_mechanisms
+  default: none
+- key: orientation
+  label: Orientation
+  group: Mechanical
+  type: choice
+  options: orientations
+  default: horizontal
+- key: baseplate
+  label: Baseplate
+  group: Mechanical
+  type: choice
+  options: baseplates
+  default: steel_plate
+- key: bolt_torque_Nm
+  label: Bolt torque (Nm)
+  group: Mechanical
+  type: number
+  default: ''
+- key: coupling
+  label: Coupling
+  group: Mechanical
+  type: choice
+  options: couplings
+  default: none_free_shaft
+- key: alignment
+  label: Alignment
+  group: Mechanical
+  type: choice
+  options: alignments
+  default: n/a_free_shaft
+- key: shaft_guard
+  label: Shaft guard fitted
+  group: Mechanical
+  type: choice
+  options: yes_no
+  default: 'yes'
+- key: accel_location
+  label: Accel location
+  group: Mechanical
+  type: choice
+  options: accel_locations
+  default: none_yet
+- key: accel_axis
+  label: Accel axis
+  group: Mechanical
+  type: choice
+  options: accel_axes
+  default: none_yet
+- key: speed_rpm_nominal
+  label: Speed (rpm)
+  group: Operating
+  type: rpm
+  default: 500
+  min: 0
+  max: 3500
+  step: 10
+- key: direction
+  label: Direction
+  group: Operating
+  type: choice
+  options: directions
+  default: forward_CW
+- key: ramp
+  label: Ramp
+  group: Operating
+  type: choice
+  options: ramps
+  default: slow_ramp
+- key: load_mechanism
+  label: Load mechanism
+  group: Operating
+  type: choice
+  options: load_mechanisms
+  default: none_free_run
+- key: load
+  label: Load level
+  group: Operating
+  type: choice
+  options: loads
+  default: no_load
+- key: supply_V
+  label: Supply (V)
+  group: Electrical
+  type: number
+  default: 24
+- key: supply_ilimit_A
+  label: Supply current limit (A)
+  group: Electrical
+  type: number
+  default: 1.0
+- key: driver_ilimit_A
+  label: Driver current limit (A)
+  group: Electrical
+  type: number
+  default: 1.8
+- key: sv_command_V
+  label: SV measured (V)
+  group: Electrical
+  type: number
+  default: ''
+- key: firmware_version
+  label: Firmware ver
+  group: Instrumentation
+  type: text
+  default: motor.elf-2026-06-19
+- key: sensor_cal_version
+  label: Sensor cal ver
+  group: Instrumentation
+  type: text
+  default: ''
+- key: dmm_ref
+  label: DMM/meter (optional)
+  group: Instrumentation
+  type: text
+  default: ''
+- key: sample_profile
+  label: Sample profile
+  group: Instrumentation
+  type: choice
+  options: sample_profiles
+  default: low_rate_trend_10Hz
+- key: channels_enabled
+  label: Channels
+  group: Instrumentation
+  type: multichoice
+  options: channels
+- key: bench_activity
+  label: Bench activity/anomalies
+  group: Notes
+  type: text
+  default: ''
+field_groups:
+- Identity
+- Health
+- Mechanical
+- Operating
+- Electrical
+- Instrumentation
+- Notes
+essentials:
+- condition
+- severity
+- speed_rpm_nominal
+- load
+- orientation
+test_templates:
+  'pick a test type': {}
+  Healthy baseline:
+    stage: 1_baseline
+    condition: healthy
+    severity: none
+    orientation: horizontal
+    mount: rigid
+    load: no_load
+    fault_mechanism: none
+  'Fault: loose mount':
+    stage: 3_fault
+    condition: loose_mount
+    severity: mild
+    fault_mechanism: mount_bolts_loosened
+    orientation: horizontal
+    mount: loosened
+    load: no_load
+    notes: Back the mounting bolts off; motor still captive but no longer rigid.
+  'Fault: rotor drag':
+    stage: 3_fault
+    condition: rotor_drag
+    severity: mild
+    fault_mechanism: shaft_friction_pad
+    orientation: horizontal
+    mount: rigid
+    load: light
+    notes: Press the friction pad against the rotating shaft. Steady pressure, not a stall.
+  'Fault: overheat':
+    stage: 3_fault
+    condition: overheat
+    severity: mild
+    fault_mechanism: heat_gun
+    orientation: horizontal
+    mount: rigid
+    load: no_load
+    notes: Heat gun on the casing. Watch MOTOR TEMP; stop well before the 80 degC winding limit.
+  'Fault: orientation change':
+    stage: 3_fault
+    condition: orientation_change
+    severity: mild
+    fault_mechanism: motor_reoriented
+    orientation: vertical_shaft_up
+    mount: rigid
+    load: no_load
+    notes: Rotate the motor. The KX134 gravity vector is what should reveal this.
+defaults: {}

@@ -1,0 +1,69 @@
+# Multiphysics channel map: the full sensor suite, with availability flags.
+# The acquisition app writes a stable wide schema; channels with available_now:false
+# are blank today and start carrying values when their sensor + firmware land.
+# This is the forward-compatible contract so today's data never has to be migrated.
+
+channels:
+  # available NOW (Hall-derived kinematics over COM3)
+  - key: rpm
+    units: rev/min
+    source: hall_edges
+    bus: USART2/ST-LINK VCP
+    available_now: true
+  - key: ripple_permil
+    units: permil
+    source: hall_edges
+    available_now: true
+    note: primary interim fault feature; mostly fixed geometry -> trend the CHANGE
+  - key: illegal
+    units: count
+    source: hall_state
+    available_now: true
+    note: cumulative; report rise, commutation/wiring health
+  - key: coast_ms
+    units: ms
+    source: coast_down
+    available_now: true
+    note: bearing/friction fingerprint; load-independent
+
+  # on the way (firmware + sensor needed)
+  - key: modbus_rpm
+    units: rev/min
+    source: BLD-510B reg $8018H
+    bus: RS-485 (MAX485)
+    available_now: false
+    note: cross-check of Hall rpm
+  - key: modbus_fault
+    units: bitmask
+    source: BLD-510B reg $801BH
+    bus: RS-485 (MAX485)
+    available_now: false
+    note: FREE ground-truth fault labels (locked-rotor/OC/Hall/bus-V)
+  - key: [accel_rms_mg, accel_pk_mg]
+    units: mg
+    source: KX134 (SparkFun, addr 0x1F)
+    bus: I2C bit-bang (SDA=D14/PB9, SCL=D15/PB8)
+    available_now: true
+    note: richest fault signal; stud-mount on bearing housing
+  - key: [temp_mv, temp_motor_c]
+    units: mV / degC
+    source: 10k NTC beta=3550 + 10k series from 3V3 on PA1/A1
+    bus: ADC1_IN1
+    available_now: true
+  - key: temp_ambient_c
+    units: degC
+    source: DS18B20
+    bus: 1-Wire (PG2)
+    available_now: false
+  - key: [i_u_a, i_v_a, i_w_a]
+    units: A
+    source: 3x low-side shunt + amp
+    bus: ADC (PA0/PC0/PC1)
+    available_now: false
+    note: per-phase MCSA; needs X-NUCLEO-IHM08M1
+  - key: i_dc_a
+    units: A
+    source: analog current module on PA0
+    bus: ADC12_IN1
+    available_now: true
+    note: interim load proxy; auto-zero plus configurable mV/A

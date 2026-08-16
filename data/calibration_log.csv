@@ -1,0 +1,5 @@
+iso_time,fixture,setpoint_rpm,app_measured_rpm,reference_rpm,error_pct,reference_ok,overall,checks
+2026-07-30T04:36:49.311075+00:00,mounted,1000,1015.9,,,,PASS,Telemetry flowing=ok | Frame integrity ≥ 95%=ok | Speed tracks command (±8%)=ok | Ripple in sane band (<600‰)=ok | No illegal Hall states=ok | Hall sensors cycling=ok
+2026-07-30T06:15:16.152500+00:00,mounted,1000,1024.2,,,,PASS,Telemetry flowing=ok | Frame integrity ≥ 95%=ok | Speed tracks command (±8%)=ok | Ripple in sane band (<600‰)=ok | No illegal Hall states=ok | Hall sensors cycling=ok
+2026-07-30T06:48:24.096227+00:00,mounted,800,330.9,,,,REVIEW,Telemetry flowing=ok | Frame integrity ≥ 95%=ok | Speed tracks command (±8%)=BAD | Ripple in sane band (<600‰)=ok | No illegal Hall states=ok | Hall sensors cycling=ok
+2026-07-30T06:51:57.448960+00:00,mounted,1000,1007.6,1008.0,-0.04,yes,PASS,Telemetry flowing=ok | Frame integrity ≥ 95%=ok | Speed tracks command (±8%)=ok | Ripple in sane band (<600‰)=ok | No illegal Hall states=ok | Hall sensors cycling=ok | RPM vs tachometer (±2%)=ok

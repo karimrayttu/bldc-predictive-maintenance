@@ -1,0 +1,29 @@
+{
+  "features": [
+    "amps_mean",
+    "amps_std",
+    "amps_max",
+    "rpm_mean",
+    "rpm_std",
+    "ripple_mean",
+    "mech1x_mean",
+    "vib_rms_mean",
+    "vib_pk_max",
+    "temp_c_mean",
+    "temp_slope_c_per_s"
+  ],
+  "window": 10,
+  "stride": 5,
+  "classes": [
+    "healthy",
+    "loose_mount",
+    "orientation_change",
+    "overheat",
+    "rotor_drag"
+  ],
+  "gravity_baseline": [
+    -12.0,
+    -21.0,
+    1050.0
+  ]
+}

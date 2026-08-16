@@ -1,0 +1,122 @@
+{
+  "session_id": "S008",
+  "created_utc": "2026-06-20T13:17:16.661039+00:00",
+  "schema_columns": [
+    "iso_time",
+    "session_id",
+    "fixture_state",
+    "valid_for_classifier",
+    "condition",
+    "severity",
+    "speed_setpoint_rpm",
+    "label",
+    "t_ms",
+    "rpm",
+    "ripple_permil",
+    "min_us",
+    "max_us",
+    "hall",
+    "illegal",
+    "edges",
+    "step",
+    "coast_ms",
+    "accel_rms_g",
+    "accel_pk_g",
+    "temp_motor_c",
+    "temp_ambient_c",
+    "i_u_a",
+    "i_v_a",
+    "i_w_a",
+    "i_dc_a",
+    "modbus_rpm",
+    "modbus_fault"
+  ],
+  "stream_columns": [
+    "t_ms",
+    "rpm",
+    "ripple_permil",
+    "min_us",
+    "max_us",
+    "hall",
+    "illegal",
+    "edges",
+    "step",
+    "coast_ms"
+  ],
+  "condition": "healthy",
+  "severity": "none",
+  "fault_mechanism": "none",
+  "orientation": "horizontal",
+  "baseplate": "steel_plate",
+  "bolt_torque_Nm": "",
+  "coupling": "none_free_shaft",
+  "alignment": "n/a_free_shaft",
+  "shaft_guard": "yes",
+  "accel_location": "none_yet",
+  "accel_axis": "none_yet",
+  "speed_rpm_nominal": "800",
+  "direction": "forward_CW",
+  "ramp": "slow_ramp",
+  "load_mechanism": "none_free_run",
+  "load": "no_load",
+  "supply_V": "24",
+  "supply_ilimit_A": "1.0",
+  "driver_ilimit_A": "1.8",
+  "sv_command_V": "",
+  "firmware_version": "motor.elf-2026-06-19",
+  "sensor_cal_version": "",
+  "dmm_ref": "",
+  "sample_profile": "low_rate_trend_10Hz",
+  "channels_enabled": "hall_rpm|ripple",
+  "bench_activity": "",
+  "label": "healthy_horizontal_no_load_800rpm",
+  "motor_model": "42BL41.010 Rev.B",
+  "fixture_state": "commissioning_unmounted",
+  "valid_for_classifier": "false",
+  "dataset_use": "commissioning_only",
+  "source": "serial",
+  "calibration": {
+    "timestamp_utc": "2026-06-20T13:17:00.228587+00:00",
+    "live_checks": {
+      "Data flowing (>=20 frames)": {
+        "pass": true,
+        "value": "158 frames"
+      },
+      "Frame integrity >= 95%": {
+        "pass": true,
+        "value": "96.9%"
+      },
+      "RPM in [50, 4400]": {
+        "pass": true,
+        "value": "499"
+      },
+      "Ripple in [0, 600] permil": {
+        "pass": true,
+        "value": "263"
+      },
+      "No illegal-Hall rise": {
+        "pass": true,
+        "value": "+0"
+      }
+    },
+    "live_pass": true,
+    "checklist": {
+      "Supply voltage confirmed (PSU display or any DMM)": false,
+      "Driver current limit set to rated (~1.8 A), not 6 A peak": false,
+      "Mount secure (bolts torqued / clamp tight)": false,
+      "Warm-up done (or noted as cold-start)": false,
+      "Speed stable at target": false
+    },
+    "refs": {
+      "supply_V_meas": "24",
+      "current_meas": "1.0"
+    },
+    "verdict": "PROVISIONAL"
+  },
+  "cal_verdict": "PROVISIONAL",
+  "notes": "auto_sweep",
+  "closed_utc": "2026-06-20T13:17:26.713986+00:00",
+  "n_rows": 101,
+  "frame_stats": "frames 101 | good 101 (100.0%) | shape-bad 0 | range-bad 0 | time-gaps 0",
+  "validated": "PASS"
+}

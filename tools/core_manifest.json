@@ -1,0 +1,6 @@
+{
+  "firmware/main.c": "7af294006835c3f1196608c9b60e1c222494e706c522c1220061e60322fb12c5",
+  "bldc_phm/validator.py": "347e7a8702df61554f59e7ec4c0ae9c051c4741cf1e1cfe3deb89d99db4f7a09",
+  "bldc_phm/sources.py": "22095564b05a4f7aeae599d864d916b94c8583de91a6dc68a2e7fbb15f717ec7",
+  "bldc_phm/schema.py": "be713edde9b0720969edf9e28cd60fba15c9e85c7092b41f14595a8bc3b6d50a"
+}

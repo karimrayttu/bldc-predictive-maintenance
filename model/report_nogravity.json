@@ -1,0 +1,64 @@
+{
+  "rf_window_accuracy": 0.9963427377220481,
+  "tree_window_accuracy": 0.8871473354231975,
+  "runs_correct": "18/18",
+  "split_notes": {
+    "healthy": "21 train runs / 9 held-out runs",
+    "loose_mount": "5 train runs / 2 held-out runs",
+    "orientation_change": "4 train runs / 2 held-out runs",
+    "overheat": "SINGLE RUN (S060): temporal 70/30 split, cross-run generalization UNPROVEN until more runs exist",
+    "rotor_drag": "9 train runs / 4 held-out runs"
+  },
+  "caveats": [
+    "overheat has ONE run: temporal split only; record more overheat runs before trusting cross-run generalization for that class",
+    "overheat run's current channel drifted negative (heat warmed the sense electronics); temperature is that class's true signature",
+    "28 of the 30 classifier-valid healthy runs predate per-axis gravity streaming (30 of the 32 recorded), so their gravity features are a constant while every fault run's are measured; the gravity/tilt features therefore separate healthy from faulted on data provenance. Run with --no-gravity for the physics-only number."
+  ],
+  "gravity_features_used": false,
+  "top_features": [
+    [
+      "temp_c_mean",
+      0.23627193289555865
+    ],
+    [
+      "mech1x_mean",
+      0.13235840675598573
+    ],
+    [
+      "vib_rms_mean",
+      0.11938081313428145
+    ],
+    [
+      "amps_max",
+      0.11764704520389875
+    ],
+    [
+      "ripple_mean",
+      0.11142523325105219
+    ],
+    [
+      "vib_pk_max",
+      0.08338650659571874
+    ],
+    [
+      "amps_mean",
+      0.07388497121966
+    ],
+    [
+      "rpm_mean",
+      0.062366320509556414
+    ],
+    [
+      "amps_std",
+      0.052616165579101634
+    ],
+    [
+      "rpm_std",
+      0.009569669342990467
+    ],
+    [
+      "temp_slope_c_per_s",
+      0.0010929355121960247
+    ]
+  ]
+}

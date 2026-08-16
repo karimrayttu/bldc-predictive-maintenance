@@ -1,0 +1,29 @@
+{
+  "features": [
+    "dmv_mean",
+    "dmv_std",
+    "dmv_max",
+    "rpm_mean",
+    "rpm_std",
+    "ripple_mean",
+    "mech1x_mean",
+    "vib_rms_mean",
+    "vib_pk_max",
+    "temp_mv_mean",
+    "temp_mv_slope",
+    "gx_mean",
+    "gy_mean",
+    "gz_mean",
+    "gdev_mean",
+    "gdev_std"
+  ],
+  "window": 10,
+  "stride": 5,
+  "gravity_baseline": [
+    -12.0,
+    -21.0,
+    1050.0
+  ],
+  "tree_acc": 0.9992163009404389,
+  "rf_acc": 0.9997387669801463
+}

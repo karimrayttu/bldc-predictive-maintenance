@@ -1,0 +1,130 @@
+# BLDC PHM acquisition: application configuration
+# Edit these to match your bench. Paths are relative to the BLDC_PHM workspace root
+# unless you give an absolute path.
+
+# FIXED motor under test; never changes (shown read-only in the app).
+motor:
+  model: "42BL41.010 Rev.B"
+  poles: 8
+  voltage_V: 24
+  rated_rpm: 4000
+  rated_current_A: 1.79
+  peak_current_A: 6.0
+
+port: COM3            # fallback only; the app AUTO-DETECTS the ST-LINK port by USB VID
+baud: 115200          # firmware streams 8N1 @ 115200
+operator: ""          # your name; pre-fills the run-metadata form
+data_dir: data        # where all organized data is written
+auto_detect_stlink: true
+
+# Analog DC-bus current sensor on PA0 / Arduino A0 (ADC1_IN0).
+#   24 V bus -> 5 mOhm shunt -> INA240A2 (50 V/V) -> 330 ohm + 10 nF RC -> PA0
+# Firmware streams untouched PA0 and VREFINT sums/counts. The legacy i_dc_mv is
+# filtered diagnostic telemetry and is never the input to current calibration.
+current_sensor:
+  enabled: true
+  # INVALIDATED 2026-07-30: the historical 175.7 mV/A fit had r^2=0.883,
+  # +/-20% point scatter, and a 30% unresolved disagreement with 5mR * 50 V/V.
+  # Raw A0/VREFINT data remains live, but the app must not publish amps until the
+  # new synchronized series-ammeter calibration passes all quality gates.
+  calibration_valid: true
+  adc_pin: "PA0 / A0 / ADC1_IN0"
+  amplifier: "INA240A2"
+  gain_v_v: 50.0
+  # Vishay/Dale WSL25125L000FEA18: 0.005 ohm, 1%, 2 W, 2512 SMD.
+  # Confirmed from the purchased part 2026-07-29. 2 W at 5 mOhm = 20 A max,
+  # so power is not a limit at bench currents.
+  shunt_ohm: 0.005
+  shunt_part: "Vishay WSL25125L000FEA18 (0.005R 1% 2W 2512)"
+  shunt_tolerance_pct: 1.0
+
+  # Current is fit directly from the raw code ratio:
+  #   I_series_A = raw_ratio_slope_a_per_ratio * (mean(PA0)/mean(VREFINT))
+  #                + raw_ratio_intercept_a
+  # OFF is a real series-current calibration point. It is never treated as zero
+  # current, so there is no auto-zero or historical idle-current add-back.
+  calibration_model: "raw_pa0_vref_affine_v1"
+  raw_ratio_slope_a_per_ratio: 2.490246
+  raw_ratio_intercept_a: -3.389705
+  calibration_session: "raw_ratio_points 2026-07-30"
+  calibration_date: "2026-07-30"
+  calibration_method: "affine fit of RAW PA0/VREFINT code ratio (the exact quantity the app computes) vs operator series meter at 0/1238/1606/2131 rpm"
+  calibration_quality: 3.82   # worst residual, mA
+
+  # Retired fields remain null so older readers fail visibly instead of silently
+  # applying the discredited 175.7 mV/A and 0.069 A constants.
+  mv_per_amp: 263.5
+  zero_mv: 1650.0       # nominal REF midpoint for UI metadata only; never in math
+  idle_offset_a: 0.053   # anchor-state truth, 2026-07-30: series meter at rest, EN released,
+                       # output stage OFF, parked in a one-sink hall sector (3/5/6),
+                       # the exact state the zero anchor is learned in. The old 0.068
+                       # dated from the EN-strap era and made the card read 15 mA above
+                       # the meter at rest and at every speed. In a two-sink park
+                       # (hall 1/2/4) the meter reads ~0.063; the app now MEASURES that
+                       # +10 mA of Hall pull-up current against its held clean anchor,
+                       # so the card tracks the meter there too, by measurement,
+                       # not by constant.
+  off_fault_mv: 0.0      # retired; kept numeric for older UI readers, never in math
+  bidirectional: true
+  # A0 rest level sits this many mV HIGHER when the rotor parks in hall sector
+  # 1/2/4 (two Hall outputs sinking pull-up current) than in 3/5/6 (one sinking).
+  # Measured blind over 9 stops on 2026-07-30: board A0 1651 vs 1648.2 mV, series
+  # meter 0.063-0.064 vs 0.053 A, sector predicted the meter 8/8. The anchor
+  # subtracts this when parked in 1/2/4 so the zero always refers to the one-sink
+  # baseline regardless of where the rotor lands. Re-measure if the driver, motor,
+  # or Hall wiring changes: park in each sector class and difference the A0 rest.
+  # Trimmed 2026-07-30 from 3.0 on the operator's settled meter readings: two-sink
+  # parks read 0.062 A against the 0.053 A one-sink baseline (fluctuates 0.062-0.064,
+  # settles 0.062). dI = 9 mA x 263.5 mV/A = 2.37 mV.
+  hall_sector_offset_mv: 2.37
+
+# NTC thermistor on PA1 / A1 (10k beta-3550 NTC to GND, 10k series from 3.3 V).
+# Firmware streams the divider node voltage (temp_mv); the app applies the beta
+# equation to produce temp_motor_c. Values ported from the Arduino bring-up sketch.
+temp_sensor:
+  enabled: true
+  adc_pin: "PA1 / A1 / ADC1_IN1"
+  vin_v: 3.3
+  series_ohm: 10000.0
+  r0_ohm: 10000.0
+  beta: 3550.0
+  t0_k: 298.15
+
+# KX134 accelerometer. baseline_mg is the gravity vector at rest in the frame
+# the whole campaign was recorded in, and is what tilt is measured against.
+#
+# demo_mount describes the 2026-07-30 re-rig: the sensor was remounted and read
+# 1 g as 1577 mg instead of 1050. The demo app maps raw readings back into the
+# bench frame with these numbers so its display stays comparable to the dataset
+# and to the trained model. Delete the demo_mount block if the sensor is ever
+# returned to the original mounting.
+accel_sensor:
+  baseline_mg: [-12.0, -21.0, 1050.0]
+  demo_mount:
+    raw_baseline_mg: [-19.0, -12.0, 1577.0]
+    scale: 0.6658
+
+# STM32 tool paths: leave blank to AUTO-DETECT (recommended). Set only to override.
+tools:
+  cubemonitor: ""
+  cubeide: ""
+  cubeprogrammer: ""
+  programmer_cli: ""
+
+# Firmware project the app re-generates, builds, and flashes. Relative to the app root,
+# so the whole BLDC_PHM folder is portable (bundled firmware/ travels with the app).
+firmware_dir: "firmware"
+firmware_elf: "firmware/motor.elf"
+
+# Fixture mode at startup. Motor is not mounted yet -> default to commissioning.
+#   mounted : the only fixture state. "Unmounted" was removed 2026-07-29, taking the
+#             motor off its mount is now the loose_mount FAULT condition, labelled per run,
+#             not a global toggle that would have double-counted it.
+default_fixture: mounted
+
+# Future RS-485 Modbus telemetry (BLD-510B); used once a MAX485 module is wired.
+modbus:
+  enabled: false
+  port: COM4
+  baud: 9600          # configurable on the driver (reg $8005H); 9600 is a safe start
+  unit: 1

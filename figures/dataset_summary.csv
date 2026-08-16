@@ -1,0 +1,6 @@
+condition,runs,speeds,vib_rms_mg,vib_pk_mg,current_a,ripple_permil,temp_c
+healthy,30,10,62.166,175,0.081,277.102,25.123
+loose_mount,7,3,77.705,416,0.085,281.647,24.882
+orientation_change,6,3,75.782,236,0.083,277.453,23.979
+rotor_drag,13,5,207.932,5810,0.263,387.252,26.307
+overheat,1,1,78.299,199,-0.023,317.476,33.974

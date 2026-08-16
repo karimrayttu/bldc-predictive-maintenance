@@ -1,0 +1,122 @@
+# ============================================================================
+#  HOOKUP MAP, every acquisition channel wired to its physical connection.
+#  Keys here match the `channels` list in taxonomy.yaml (KEEP THE TWO IN SYNC).
+#  The app shows this in the Wiring tab and warns if a channel has no entry.
+#
+#  This file lists ONLY hardware that is physically on the bench today. Channels
+#  for sensors we do not own (DC-bus voltage divider, ambient DS18B20, driver PG
+#  pulse, driver ALM, RS-485/Modbus) were removed 2026-07-29; they were pin
+#  PROPOSALS from the old NUCLEO-H743ZI2 build and only made the table look like
+#  the rig had instrumentation it does not have.
+#
+#  NOTE: this file is DOCUMENTATION + the channel picker. Acquisition pins are
+#  compiled into the firmware; editing a pin here does NOT re-route anything.
+#  If a pin changes, change it in firmware/main.c and record it here.
+#
+#  Pin map verified on NUCLEO-F401RE by the pin X-ray firmware (2026-07-28).
+# ============================================================================
+
+channels:
+  hall_rpm:
+    signal: Hall A/B/C edges
+    nucleo_pin: PA10 (D2) / PB3 (D3) / PB5 (D4)
+    bus: GPIO + EXTI (both edges)
+    connector: driver HA / HB / HC (tapped in parallel)
+    sensor: motor Hall sensors (120 deg)
+    status: live
+    conditioning: 5V-tolerant inputs; common GND via the SV ground wire
+    note: 8-pole motor -> 24 edges/rev (3 sensors x 2 edges x 4 pole-pairs). Primary speed channel.
+
+  ripple:
+    signal: speed ripple (derived, no pin)
+    nucleo_pin: (none - computed in firmware)
+    bus: (firmware, from Hall edge intervals)
+    connector: (derived from hall_rpm)
+    sensor: (none)
+    status: live
+    conditioning: (none)
+    note: >-
+      Spread of the 24 Hall-edge intervals per rev, per-mille of the mean. READ THE CAVEAT:
+      the healthy baseline is dominated by fixed Hall-spacing/magnetisation geometry, not by
+      real speed variation, so trend the CHANGE against a baseline rather than the absolute
+      value. period_std_permil / mech1x_permil / elec_permil are the better-conditioned
+      features and are logged on every row.
+
+  sv_command:
+    signal: speed setpoint out (PWM to driver)
+    nucleo_pin: PB4 (D5, TIM3_CH1)
+    bus: 1 kHz PWM
+    connector: driver SV; common signal ground is mandatory
+    sensor: (none)
+    status: live
+    conditioning: >-
+      3.3 V PWM into the 5 V-referenced SV input scales duty x0.66, so firmware FULLSCALE is
+      2310 rpm (bench-verified: S1200 -> 1205 measured). A FLOATING SV wire makes the motor
+      free-run near 1700 rpm ignoring commands; check D5 is seated first if it disobeys.
+    note: Serial command "S<rpm>\n" over USART2; stream column `step`=9 confirms receipt.
+
+  driver_enable:
+    signal: driver output-stage enable (EN)
+    nucleo_pin: PA8 (D7, open-drain GPIO)
+    bus: DC level
+    connector: driver EN terminal; COM stays on the shared ground
+    sensor: (none)
+    status: live
+    conditioning: >-
+      Open-drain; sunk to COM = ENABLED (identical to the old EN-COM strap), released
+      (high-Z) = output stage OFF. Firmware sinks it whenever speed > 0 and releases it
+      at S0, and boots RELEASED so the motor can never start before firmware is in
+      control. 5 V-tolerant pin, safe against the driver's internal pull-up.
+    note: >-
+      Added 2026-07-30. With EN strapped to COM the always-armed driver left ~10 mA of
+      standby winding bias whenever the rotor parked in hall sector 2 or 4 (measured
+      over 8 stops; ammeter 0.063-0.064 vs 0.053 A, A0 +3-4 mV). That random bias
+      poisoned any zero re-anchor taken in those sectors. With EN released at rest the
+      idle is one flat constant and every anchor is a true 0 A reference.
+
+  dc_bus_current:
+    signal: DC-link current (load / torque proxy)
+    nucleo_pin: PA0 (A0, ADC1_IN0)
+    bus: ADC1, 1 kS/s, eight raw conversions per acquisition tick
+    connector: 5 mOhm shunt in-line between PSU(+) and driver V+
+    sensor: INA240A2 current-shunt amplifier (gain 50 V/V)
+    status: live
+    conditioning: >-
+      REF1->GND and REF2->3.3V put the INA240 in BIDIRECTIONAL mode, output centred ~1.65 V,
+      so regenerative coast-down current stays visible. 330 ohm + 10 nF RC into the ADC pin.
+      Firmware transmits untouched PA0 and VREFINT sums/counts. Current is fitted
+      directly from their ratio against fresh series-ammeter measurements.
+    note: >-
+      The 2026-07-28 current calibration was invalidated: its hold-out used constructed
+      frames and historical currents. Raw ADC data remains live; amps remain unavailable
+      until a new synchronized DMM/scope/series-ammeter campaign passes.
+
+  motor_temp:
+    signal: motor casing temperature
+    nucleo_pin: PA1 (A1, ADC1_IN1)
+    bus: ADC1, 500 Hz, Q8 EMA tau 128 ms
+    connector: NTC bonded to the motor casing; 10k series resistor from 3V3
+    sensor: 10k NTC thermistor, beta = 3550
+    status: live
+    conditioning: >-
+      Ratiometric divider (10k series from 3V3, NTC to GND). Firmware streams the divider
+      node voltage as temp_mv; the app applies the beta equation using the temp_sensor block
+      in app_config.yaml. Verified against the DMM to +/-0.07 degC.
+    note: Lets baselines be binned by temperature instead of a fixed warm-up wait.
+
+  accel_vibration:
+    signal: tri-axial vibration (primary mechanical-fault channel)
+    nucleo_pin: SDA = PB9 (D14), SCL = PB8 (D15)
+    bus: BIT-BANG I2C, addr 0x1F (WHO_AM_I 0x46)
+    connector: KX134-1211 breakout
+    sensor: KX134-1211 MEMS accelerometer
+    status: live
+    conditioning: >-
+      Bit-bang is DELIBERATE: the F401 hardware-I2C BUSY errata makes the peripheral
+      unusable here. The read blocks the main loop ~1 ms every 5 ms, which is why the ADC
+      tick uses catch-up timing (last_adc += 1000) instead of last_adc = t.
+      INT1 is parked on PA9 (D8), unused and harmless.
+    note: >-
+      Firmware self-check requires the sensor to ANSWER and to measure ~1 g of gravity, so a
+      dead or frozen part cannot fake a plausible reading. Needs a rigid mount to be valid,
+      stud-mount to the bearing housing, radial axis.

@@ -1,0 +1,31 @@
+name: Question about a number
+description: A figure, metric or claim in the documentation does not reproduce.
+labels: [documentation]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Every number in this repository is meant to come out of a command. If one does
+        not reproduce, that is a defect worth reporting.
+  - type: input
+    id: claim
+    attributes:
+      label: Which claim
+      description: Quote it, and say where it appears.
+      placeholder: "README, 99.63% held-out accuracy"
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: Command you ran
+      placeholder: "python tools/evaluate_model.py"
+    validations:
+      required: true
+  - type: textarea
+    id: got
+    attributes:
+      label: What you got instead
+      render: text
+    validations:
+      required: true

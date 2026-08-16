@@ -1,0 +1,2 @@
+"""Headless HTTP dashboard.
+"""

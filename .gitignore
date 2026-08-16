@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+
+# Build output. Covers firmware/build/ from firmware/Makefile.
+build/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Runtime state written while the bench app is running. Not part of the record.
+data/_live/
+data/_archive*/
+*.pid
+
+# Consolidated workbook: regenerate with the app's Consolidate action or
+# bldc_phm/consolidate.py. Large and derived, so it is not tracked.
+data/MOUNTED.xlsx
+
+# The recorded campaign (data/mounted_baseline/) and the trained model
+# (model/) ARE tracked on purpose. They are the result this repository exists
+# to show, and every figure and metric in the README is built from them.
+
+# Environment / secrets
+.env
+*.local
+*.pem
+*.key
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

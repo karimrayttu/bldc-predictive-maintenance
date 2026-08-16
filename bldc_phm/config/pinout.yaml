@@ -1,0 +1,37 @@
+# ============================================================================
+#  PIN ASSIGNMENT, NUCLEO-F401RE (MB1136), STM32F401RET6
+#
+#  Edited from the Pinout page in the app. Every value must be a GPIO that
+#  physically exists on this board; the page only offers valid ones and blocks
+#  saving a map that cannot work (pin reused, no ADC channel on an analog
+#  signal, no timer on the PWM signal, EXTI line collision between Halls).
+#
+#  IMPORTANT: this records the wiring, it does not re-route it. Acquisition
+#  pins are compiled into firmware/main.c as direct register writes. Change a
+#  pin here, then change it in the firmware and reflash; the page shows a
+#  MISMATCH banner until the two agree, so drift cannot go unnoticed.
+#
+#  Verified 2026-07-28 by the separate pin X-ray firmware build.
+# ============================================================================
+
+pins:
+  hall_a:  PA10      # D2, motor Hall A, EXTI10, both edges
+  hall_b:  PB3       # D3, motor Hall B, EXTI3,  both edges
+  hall_c:  PB5       # D4, motor Hall C, EXTI5,  both edges
+  sv_pwm:  PB4       # D5, TIM3_CH1, 1 kHz PWM into the BLD-510B SV input
+  drv_en:  PA8       # D7, OPEN-DRAIN to BLD-510B EN (2026-07-30). Sinking EN
+                     #        to COM enables the driver; released = output stage
+                     #        off. Replaces the hardwired EN-COM strap, which left
+                     #        ~10 mA of parked winding bias whenever the rotor
+                     #        stopped in hall sector 2 or 4 (measured, 8 stops).
+  i_sense: PA0       # A0, ADC1_IN0, INA240A2 output (gain 50, 5 mOhm shunt)
+  ntc:     PA1       # A1, ADC1_IN1, 10k NTC divider node (beta 3550)
+  kx_sda:  PB9       # D14: KX134 bit-bang I2C data  (addr 0x1F)
+  kx_scl:  PB8       # D15: KX134 bit-bang I2C clock
+  kx_int1: PA9       # D8, KX134 data-ready, parked and unused
+
+# Why the Halls sit on EXTI lines 10 / 3 / 5: STM32 selects the EXTI line by PIN
+# NUMBER, not by port, so any two Hall pins sharing a number (e.g. PA10 + PB10)
+# would fight over one interrupt line and one channel would go silent. 10/3/5 are
+# distinct, so all three fire independently: which is what lets the firmware see
+# all six Hall codes and prove every line is alive.

@@ -1,0 +1,25 @@
+channel,label,condition,AUC,p,cliffs
+accel_rms_mg,vibration RMS,loose_mount,0.571428571428571,0.573921255454166,-0.142857142857143
+accel_rms_mg,vibration RMS,orientation_change,1,0.000145243924316818,1
+accel_rms_mg,vibration RMS,overheat,NaN,NaN,NaN
+accel_rms_mg,vibration RMS,rotor_drag,0.971794871794872,1.21897568257095e-06,0.943589743589744
+accel_pk_mg,vibration peak,loose_mount,0.554761904761905,0.669126153304394,-0.10952380952381
+accel_pk_mg,vibration peak,orientation_change,0.955555555555556,0.000527469651215115,0.911111111111111
+accel_pk_mg,vibration peak,overheat,NaN,NaN,NaN
+accel_pk_mg,vibration peak,rotor_drag,1,2.61801145084812e-07,1
+i_dc_a,bus current,loose_mount,0.552380952380952,0.683881271711142,0.104761904761905
+i_dc_a,bus current,orientation_change,0.544444444444444,0.750213947003323,0.0888888888888889
+i_dc_a,bus current,overheat,NaN,NaN,NaN
+i_dc_a,bus current,rotor_drag,1,2.69788410868132e-07,1
+ripple_permil,speed ripple,loose_mount,0.604761904761905,0.404430759323268,0.20952380952381
+ripple_permil,speed ripple,orientation_change,0.505555555555556,0.983067114544577,-0.0111111111111111
+ripple_permil,speed ripple,overheat,NaN,NaN,NaN
+ripple_permil,speed ripple,rotor_drag,0.943589743589744,5.07554323003028e-06,0.887179487179487
+temp_motor_c,temperature,loose_mount,0.571428571428571,0.573921255454166,-0.142857142857143
+temp_motor_c,temperature,orientation_change,0.827777777777778,0.0130212818886876,-0.655555555555556
+temp_motor_c,temperature,overheat,NaN,NaN,NaN
+temp_motor_c,temperature,rotor_drag,0.674358974358975,0.0742629611445812,0.348717948717949
+rpm,speed,loose_mount,0.6,0.426639153919937,0.2
+rpm,speed,orientation_change,0.544444444444444,0.750213947003323,0.0888888888888889
+rpm,speed,overheat,NaN,NaN,NaN
+rpm,speed,rotor_drag,0.535897435897436,0.721093323492313,-0.0717948717948718

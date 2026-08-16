@@ -1,0 +1,137 @@
+{
+  "can_run": true,
+  "can_flash": true,
+  "can_link": false,
+  "python": "3.13.13",
+  "root": "<repo>",
+  "checks": [
+    {
+      "id": "python.version",
+      "enables": "RUN",
+      "severity": "BLOCKER",
+      "ok": true,
+      "detail": "Python 3.13.13",
+      "remedy": ""
+    },
+    {
+      "id": "python.bits",
+      "enables": "RUN",
+      "severity": "DEGRADED",
+      "ok": true,
+      "detail": "64-bit",
+      "remedy": ""
+    },
+    {
+      "id": "packages.required",
+      "enables": "RUN",
+      "severity": "BLOCKER",
+      "ok": true,
+      "detail": "all present",
+      "remedy": ""
+    },
+    {
+      "id": "packages.optional",
+      "enables": "RUN",
+      "severity": "DEGRADED",
+      "ok": true,
+      "detail": "all present",
+      "remedy": ""
+    },
+    {
+      "id": "qt.widget",
+      "enables": "RUN",
+      "severity": "BLOCKER",
+      "ok": true,
+      "detail": "Qt can create windows",
+      "remedy": ""
+    },
+    {
+      "id": "disk.writable",
+      "enables": "RUN",
+      "severity": "BLOCKER",
+      "ok": true,
+      "detail": "<repo>\\data",
+      "remedy": ""
+    },
+    {
+      "id": "disk.location",
+      "enables": "RUN",
+      "severity": "DEGRADED",
+      "ok": true,
+      "detail": "<repo>",
+      "remedy": ""
+    },
+    {
+      "id": "project.firmware",
+      "enables": "BUILD",
+      "severity": "BLOCKER",
+      "ok": true,
+      "detail": "firmware/main.c present",
+      "remedy": ""
+    },
+    {
+      "id": "project.config",
+      "enables": "RUN",
+      "severity": "BLOCKER",
+      "ok": true,
+      "detail": "app_config.yaml present",
+      "remedy": ""
+    },
+    {
+      "id": "firmware.writable",
+      "enables": "BUILD",
+      "severity": "BLOCKER",
+      "ok": true,
+      "detail": "firmware/ is writable",
+      "remedy": ""
+    },
+    {
+      "id": "serial.enumerate",
+      "enables": "LINK",
+      "severity": "BLOCKER",
+      "ok": true,
+      "detail": "1 COM port(s)",
+      "remedy": ""
+    },
+    {
+      "id": "serial.stlink",
+      "enables": "LINK",
+      "severity": "DEGRADED",
+      "ok": false,
+      "detail": "no ST-LINK Virtual COM Port found",
+      "remedy": "Plug the NUCLEO-F401RE into USB (the ST-LINK end, not the user USB).\n        Windows 11 binds the VCP automatically, no ST driver download needed.\n        If it still does not appear, try another cable: many USB cables are\n        charge-only and carry no data lines."
+    },
+    {
+      "id": "gcc.compiles",
+      "enables": "BUILD",
+      "severity": "BLOCKER",
+      "ok": true,
+      "detail": "arm-none-eabi-gcc.exe compiles for Cortex-M4",
+      "remedy": ""
+    },
+    {
+      "id": "gcc.path",
+      "enables": "BUILD",
+      "severity": "DEGRADED",
+      "ok": true,
+      "detail": "C:\\ST\\STM32CubeIDE_2.2.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740\\tools\\bin\\arm-none-eabi-gcc.exe",
+      "remedy": ""
+    },
+    {
+      "id": "programmer.runs",
+      "enables": "FLASH",
+      "severity": "BLOCKER",
+      "ok": true,
+      "detail": "STM32CubeProgrammer v2.23.0",
+      "remedy": ""
+    },
+    {
+      "id": "programmer.path",
+      "enables": "FLASH",
+      "severity": "DEGRADED",
+      "ok": true,
+      "detail": "C:\\ST\\STM32CubeIDE_2.2.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.cubeprogrammer.win32_2.2.500.202603051304\\tools\\bin\\STM32_Programmer_CLI.exe",
+      "remedy": ""
+    }
+  ]
+}

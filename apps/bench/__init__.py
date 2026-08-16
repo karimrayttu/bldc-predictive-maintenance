@@ -1,0 +1,2 @@
+"""Windows PyQt campaign application.
+"""
